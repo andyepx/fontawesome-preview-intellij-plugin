@@ -16,12 +16,14 @@ public class SimpleLineMarkerProvider extends RelatedItemLineMarkerProvider {
         if (element instanceof XmlToken) {
             String value = element.getText();
             if (value != null && value.contains("fa-")) {
-                result.add(
-                        NavigationGutterIconBuilder
-                                .create(SimpleIcons.FILE)
-                                .setTarget(element)
-                                .createLineMarkerInfo(element)
-                );
+                if (SimpleIcons.FILE != null) {
+                    result.add(
+                            NavigationGutterIconBuilder
+                                    .create(SimpleIcons.FILE)
+                                    .setTarget(element)
+                                    .createLineMarkerInfo(element)
+                    );
+                }
             }
         }
     }
