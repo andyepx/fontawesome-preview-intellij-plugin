@@ -1,5 +1,6 @@
 package com.andreaepifani.fontawesome;
 
+import com.andreaepifani.fontawesomeutils.IconLookup;
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo;
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider;
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder;
@@ -13,13 +14,15 @@ public class SimpleLineMarkerProvider extends RelatedItemLineMarkerProvider {
     @Override
     protected void collectNavigationMarkers(@NotNull PsiElement element,
                                             Collection<? super RelatedItemLineMarkerInfo> result) {
+        IconLookup il = new IconLookup();
+
         if (element instanceof XmlToken) {
             String value = element.getText();
             if (value != null && value.contains("fa-")) {
-                if (SimpleIcons.FILE != null) {
+                if (il.contains(value.trim())) {
                     result.add(
                             NavigationGutterIconBuilder
-                                    .create(SimpleIcons.FILE)
+                                    .create(il.getIcon(value.trim()))
                                     .setTarget(element)
                                     .createLineMarkerInfo(element)
                     );
